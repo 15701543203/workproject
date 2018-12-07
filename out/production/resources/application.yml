@@ -1,0 +1,13 @@
+server:
+  port: 8089
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/shiro
+logging:
+  config: classpth:config/logback.xml
+mybatis:
+  mapper-locations: classpath*:com/ccm/**/dao/*.xml
+  configuration: classpath:config/mybatis-config.xml
