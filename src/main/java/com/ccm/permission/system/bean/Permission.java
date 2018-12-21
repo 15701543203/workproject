@@ -5,12 +5,16 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-@Entity
+
 @Getter
 @Setter
 @ToString
+@Entity
 public class Permission {
+    @Id@GeneratedValue
     private Integer perId;
     private String perName;
     private Integer parentId;

@@ -5,16 +5,20 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-@Entity
+
 @Getter
 @Setter
 @ToString
+@Entity
 public class Role {
-private Integer roelId;
-private String roleName;
-private Integer roleStatus;
-private String gentime;
-private String roleDescription;
+    @Id@GeneratedValue
+    private Integer roelId;
+    private String roleName;
+    private Integer roleStatus;
+    private String gentime;
+    private String roleDescription;
 
 }
