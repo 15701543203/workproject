@@ -76,7 +76,7 @@ public class LoginController {
      * @Param
      * @return
      **/
-    @RequestMapping("/unauthor")
+    @RequestMapping("/403")
     @ApiOperation(value = "无权限", notes = "访问没有权限的URL会走到这里")
     public ResponseMessage unauthorizedRole() {
         _log.error("用户没有登录,或没有权限");

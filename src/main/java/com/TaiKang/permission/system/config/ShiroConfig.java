@@ -39,7 +39,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setLoginUrl("/unauthor");
         shiroFilterFactoryBean.setSuccessUrl("/index");
-//        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         _log.info("[ShiroConfig-INFO]Shiro拦截器配置结束。");
         return shiroFilterFactoryBean;
