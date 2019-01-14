@@ -18,7 +18,6 @@ sourceSets.main.resources.srcDirs = ["src/main/java", "src/main/resources"]
 
 
 dependencies {
-    //
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
     compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.0'
     //wagger2
@@ -38,9 +37,6 @@ dependencies {
     compile group: 'cglib', name: 'cglib', version: '3.2.10'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.1.1.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.1.2.RELEASE'
-// https://mvnrepository.com/artifact/com.github.theborakompanioni/thymeleaf-extras-shiro
     compile group: 'com.github.theborakompanioni', name: 'thymeleaf-extras-shiro', version: '2.0.0'
-
-
 }
 
