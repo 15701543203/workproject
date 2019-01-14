@@ -7,6 +7,7 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
@@ -14,13 +15,13 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
-//
+
 @Configuration
 public class ShiroConfig {
     private final  static Logger _log = LoggerFactory.getLogger(ShiroConfig.class);
 
     @Bean
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+    public ShiroFilterFactoryBean shirFilter(@Qualifier("securityManager") SecurityManager securityManager) {
         _log.info("[ShiroConfig-INFO]Shiro拦截器启动...");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
@@ -28,9 +29,8 @@ public class ShiroConfig {
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/logout", "logout");
-        filterChainDefinitionMap.put("/myLogin","anon");
-        filterChainDefinitionMap.put("/login","anon");
-
+//        filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/thymeleaf","anon");
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
         filterChainDefinitionMap.put("/v2/**", "anon");
@@ -59,7 +59,7 @@ public class ShiroConfig {
 //        return hashedCredentialsMatcher;
 //    }
 
-    @Bean
+    @Bean(value = "myShiroRealm")
     public MyShiroRealm myShiroRealm(){
         MyShiroRealm myShiroRealm = new MyShiroRealm();
 //        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
@@ -67,7 +67,7 @@ public class ShiroConfig {
     }
 
 
-    @Bean
+    @Bean(value = "securityManager")
     public SecurityManager securityManager(){
         DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm());
@@ -80,7 +80,7 @@ public class ShiroConfig {
      * @param securityManager
      * @return
      */
-    @Bean
+    @Bean(value = "authorizationAttributeSourceAdvisor")
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);

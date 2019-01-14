@@ -5,7 +5,6 @@ import com.TaiKang.permission.system.service.UserInfoService;
 import com.TaiKang.permission.utils.ResponseMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -16,6 +15,8 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RestController
+@Controller
 @Api(value = "用户登录接口", description = "经过登录验证之后方可进行后续操作")
 public class LoginController {
 
@@ -87,5 +88,13 @@ public class LoginController {
     @ApiOperation(value = "退出登录", notes = "退出的方法Shiro已经实现")
     public ResponseMessage logout() {
         return ResponseMessage.ok("/");
+    }
+
+
+    @RequestMapping("/thymeleaf")
+    public String thymeleaf(Model model){
+        System.out.println("loginController>thymeleaf()");
+        model.addAttribute("thymeleaf","测试thymeleaf");
+        return "thymeleaf";
     }
 }
