@@ -1,5 +1,6 @@
 package com.TaiKang.permission.system.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -18,7 +19,7 @@ import java.util.Properties;
 
 @Configuration
 public class ShiroConfig {
-    private final  static Logger _log = LoggerFactory.getLogger(ShiroConfig.class);
+    private final static Logger _log = LoggerFactory.getLogger(ShiroConfig.class);
 
     @Bean
     public ShiroFilterFactoryBean shirFilter(@Qualifier("securityManager") SecurityManager securityManager) {
@@ -26,7 +27,7 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //拦截器.
-        Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         //静态文件及Swagger2
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
@@ -36,8 +37,12 @@ public class ShiroConfig {
         //退出方法
         filterChainDefinitionMap.put("/logout", "logout");
         //自定义登录的方法
-        filterChainDefinitionMap.put("/customLogin","anon");
+        filterChainDefinitionMap.put("/customLogin", "anon");
 
+
+        //授权过滤器
+        //注意:当授权拦截后,shiro会自动跳转到未授权页面
+        filterChainDefinitionMap.put("/add", "perms[user:add]");
 
 
         //所有请求都需要经过认证才可以访问URL
@@ -57,6 +62,7 @@ public class ShiroConfig {
      * 凭证匹配器
      * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了
      * ）
+     *
      * @return
      */
 //    @Bean
@@ -66,9 +72,8 @@ public class ShiroConfig {
 //        hashedCredentialsMatcher.setHashIterations(2);//散列的次数，比如散列两次，相当于 md5(md5(""));
 //        return hashedCredentialsMatcher;
 //    }
-
     @Bean(value = "myShiroRealm")
-    public MyShiroRealm myShiroRealm(){
+    public MyShiroRealm myShiroRealm() {
         MyShiroRealm myShiroRealm = new MyShiroRealm();
 //        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return myShiroRealm;
@@ -76,23 +81,35 @@ public class ShiroConfig {
 
 
     @Bean(value = "securityManager")
-    public SecurityManager securityManager(){
-        DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
+    public SecurityManager securityManager() {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm());
         return securityManager;
     }
 
     /**
-     *  开启shiro aop注解支持.
-     *  使用代理方式;所以需要开启代码支持;
+     * 开启shiro aop注解支持.
+     * 使用代理方式;所以需要开启代码支持;
+     *
      * @param securityManager
      * @return
      */
     @Bean(value = "authorizationAttributeSourceAdvisor")
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
+    }
+
+
+    /**
+     * 配置shiro shirodialect,用于thymeleaf和shiro标签配合使用
+     *
+     * @return
+     */
+    @Bean
+    public ShiroDialect getShrioDialect() {
+        return new ShiroDialect();
     }
 
 }

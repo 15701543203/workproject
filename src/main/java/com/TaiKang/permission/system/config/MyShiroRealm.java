@@ -6,6 +6,7 @@ import com.TaiKang.permission.system.bean.RoleInfo;
 import com.TaiKang.permission.system.bean.UserInfo;
 import com.TaiKang.permission.system.service.RoleInfoService;
 import com.TaiKang.permission.system.service.UserInfoService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -14,6 +15,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +41,21 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 //        _log.info("[MyShiroRealm/doGetAuthorizationInfo-INFO]权限配置");
-//        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        //给资源s授权
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+
+        //查询当前用户的授权字符串
+        Subject subject = SecurityUtils.getSubject();
+        UserInfo userInfo = (UserInfo) subject.getPrincipal();
+
+
+        //userInfoService.findById(userInfo.getId());
+//       UserInfo dbuserInfo =authorizationInfo.addStringPermission("user:add");
+//        authorizationInfo.addStringPermission(dbuserInfo.getPermiassion());
+
+
+
+
 //        UserInfo userInfo = (UserInfo) principals.getPrimaryPrincipal();
 //        List<RoleInfo> roleInfos = roleInfoService.getRolesByUserId(userInfo.getUserId());
 //        for(RoleInfo role:roleInfos){
@@ -48,9 +64,9 @@ public class MyShiroRealm extends AuthorizingRealm {
 //                authorizationInfo.addStringPermission(p.getPermission());
 //            }
 //        }
-//        return authorizationInfo;
-        System.err.println("执行权限认证逻辑");
-        return null;
+        authorizationInfo.addStringPermission("user:add");
+
+        return authorizationInfo;
     }
 
 
@@ -73,7 +89,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             return null;
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                userInfo, //用户名
+                userInfo, //用户
                 userInfo.getUserPwd(), //密码
 //                ByteSource.Util.bytes(userInfo.getSalt()),//salt=username+salt
                 getName()  //realm name
