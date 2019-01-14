@@ -14,7 +14,16 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo findByUsername(String username) {
         UserInfo userInfo = userInfoMapper.selectByUsername(username);
-        System.out.println(userInfo+"_________");
         return userInfo;
     }
+
+    @Override
+    public boolean addUserInfo(UserInfo userInfo) {
+        boolean tag = false;
+        if (userInfoMapper.insertUserInfo(userInfo)==1){
+            tag = true;
+        }
+        return false;
+    }
+
 }

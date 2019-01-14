@@ -10,4 +10,6 @@ public interface UserInfoMapper {
      * 通过username查找用户信息;
      */
     UserInfo selectByUsername(String username);
+
+    int insertUserInfo(UserInfo userInfo);
 }

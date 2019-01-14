@@ -43,7 +43,7 @@ public class ResponseMessage {
 
     public static ResponseMessage error(Object obj) {
         ResponseMessage responseMessage = new ResponseMessage();
-        responseMessage.setCode(500);
+        responseMessage.setCode(501);
         responseMessage.setSuccess("false");
         responseMessage.setData(obj);
         responseMessage.setTimestamp(new Date().getTime());

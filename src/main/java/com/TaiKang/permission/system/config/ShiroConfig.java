@@ -27,18 +27,26 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //拦截器.
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
+        //静态文件及Swagger2
         filterChainDefinitionMap.put("/static/**", "anon");
-        filterChainDefinitionMap.put("/logout", "logout");
-//        filterChainDefinitionMap.put("/login","anon");
-        filterChainDefinitionMap.put("/thymeleaf","anon");
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
         filterChainDefinitionMap.put("/v2/**", "anon");
         filterChainDefinitionMap.put("/webjars/**", "anon");
+        //退出方法
+        filterChainDefinitionMap.put("/logout", "logout");
+        //自定义登录的方法
+        filterChainDefinitionMap.put("/customLogin","anon");
 
+
+
+        //所有请求都需要经过认证才可以访问URL
         filterChainDefinitionMap.put("/**", "authc");
-        shiroFilterFactoryBean.setLoginUrl("/unauthor");
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        //到登录的url
+        shiroFilterFactoryBean.setLoginUrl("/toLogin");
+        //登录成功跳转的路径
+        shiroFilterFactoryBean.setSuccessUrl("/thymeleaf");
+        //未授权的路劲
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         _log.info("[ShiroConfig-INFO]Shiro拦截器配置结束。");

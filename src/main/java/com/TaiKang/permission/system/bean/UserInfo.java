@@ -28,4 +28,6 @@ public class UserInfo implements Serializable{
     //盐
     private String salt;
 
+    private String remark;
+
 }

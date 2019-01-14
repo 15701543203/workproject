@@ -4,4 +4,29 @@
     <select id="selectByUsername" parameterType="String" resultType="com.TaiKang.permission.system.bean.UserInfo">
         SELECT * FROM user_info WHERE username  =#{username}
     </select>
+
+    <insert id="insertUserInfo" parameterType="com.TaiKang.permission.system.bean.UserInfo" useGeneratedKeys="true"
+            keyProperty="user_id">
+        INSERT INTO user_info (
+            username,
+            user_pwd,
+            ture_name,
+            mobile,
+            email,
+            STATUS,
+            salt,
+            remark
+        )
+        VALUES
+            (
+                #{username},
+                #{userPwd},
+                #{tureName},
+                #{mobile},
+                #{email},
+                #{status},
+                #{salt},
+                #{remark}
+            )
+    </insert>
 </mapper>

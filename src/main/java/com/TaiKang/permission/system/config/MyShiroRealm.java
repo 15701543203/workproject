@@ -49,7 +49,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 //            }
 //        }
 //        return authorizationInfo;
-        System.err.println("权限逻辑");
+        System.err.println("执行权限认证逻辑");
         return null;
     }
 
@@ -64,22 +64,20 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
             throws AuthenticationException {
-//        _log.info("[MyShiroRealm/doGetAuthenticationInfo-INFO]用户登录,身份验证[{}]", token.getPrincipal().toString());
-//        //获取用户的输入的账号.
-//        String username = (String) token.getPrincipal();
-//        UserInfo userInfo = userInfoService.findByUsername(username);
-//        if (userInfo == null) {
-//            return null;
-//        }
-//        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-//                userInfo, //用户名
-//                userInfo.getUserPwd(), //密码
-////                ByteSource.Util.bytes(userInfo.getSalt()),//salt=username+salt
-//                getName()  //realm name
-//        );
-//        return authenticationInfo;
+        _log.info("执行登录认证逻辑");
+        //获取用户的输入的账号.
+        String username = (String) token.getPrincipal();
+        UserInfo userInfo = userInfoService.findByUsername(username);
 
-        System.err.println("登录逻辑");
-        return null;
+        if (userInfo == null) {
+            return null;
+        }
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
+                userInfo, //用户名
+                userInfo.getUserPwd(), //密码
+//                ByteSource.Util.bytes(userInfo.getSalt()),//salt=username+salt
+                getName()  //realm name
+        );
+        return authenticationInfo;
     }
 }

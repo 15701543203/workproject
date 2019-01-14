@@ -1,5 +1,6 @@
 package com.TaiKang.permission.system.controller;
 
+import com.TaiKang.permission.system.bean.UserInfo;
 import com.TaiKang.permission.utils.ResponseMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,9 +30,11 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping("/userAdd")
-    @RequiresPermissions("userInfo:add")//权限管理;
+//    @RequiresPermissions("userInfo:add")//权限管理;
     @ApiOperation(value = "添加用户信息",notes = "")
-    public String userInfoAdd(){
+    public String userInfoAdd(UserInfo userInfo){
+
+
         return "userInfoAdd";
     }
 

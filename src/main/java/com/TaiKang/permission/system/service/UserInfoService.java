@@ -8,4 +8,6 @@ public interface UserInfoService {
      * @return
      */
     UserInfo findByUsername(String username);
+
+    boolean addUserInfo(UserInfo userInfo);
 }
