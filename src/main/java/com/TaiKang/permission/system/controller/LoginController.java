@@ -87,11 +87,16 @@ public class LoginController {
         } catch (AuthenticationException Ae) {
             model.addAttribute("mistake","未授权");
             return "/shiro/login";
+
+
+            
         } catch (Exception e) {
             model.addAttribute("mistake","其他类型异常");
             return "/shiro/login";
         }
         return "thymeleaf";
+
+
     }
 
     /*
