@@ -3,13 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+<<<<<<< HEAD
     <!-- 配置mybatis的缓存，延迟加载等等一系列属性 -->
+=======
+>>>>>>> master
     <settings>
         <!-- 全局映射器启用缓存 -->
         <setting name="cacheEnabled" value="true"/>
 
         <!-- 查询时，关闭关联对象即时加载以提高性能 -->
+<<<<<<< HEAD
         <setting name="lazyLoadingEnabled" value="false"/>
+=======
+        <setting name="lazyLoadingEnabled" value="true"/>
+>>>>>>> master
 
         <!-- 对于未知的SQL查询，允许返回不同的结果集以达到通用的效果 -->
         <setting name="multipleResultSetsEnabled" value="true"/>
@@ -51,10 +58,20 @@
         <setting name="proxyFactory" value="CGLIB"/>
     </settings>
 
+<<<<<<< HEAD
     <!-- 插件配置 -->
     <!--<plugins>-->
     <!--<plugin interceptor="com.github.pagehelper.PageHelper" >-->
     <!--<property name="" value=""></property>-->
     <!--</plugin>-->
     <!--</plugins>-->
+=======
+    <!--分页插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="helperDialect" value="mysql"/>
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
+>>>>>>> master
 </configuration>

@@ -2,8 +2,8 @@ group 'com.permission.shiro'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'idea'
 
-sourceCompatibility = 1.8
 
 //阿里云远程仓库提升下载速度
 repositories {
@@ -12,7 +12,9 @@ repositories {
     }
 //    mavenCentral()
 }
-
+configurations {
+    providedRuntime
+}
 
 sourceSets.main.resources.srcDirs = ["src/main/java", "src/main/resources"]
 
@@ -39,4 +41,3 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.1.2.RELEASE'
     compile group: 'com.github.theborakompanioni', name: 'thymeleaf-extras-shiro', version: '2.0.0'
 }
-
