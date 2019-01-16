@@ -119,14 +119,12 @@ public class LoginController {
      */
     @RequestMapping("/thymeleaf")
     public String thymeleaf(Model model){
-        System.err.println("loginController>thymeleaf()");
         model.addAttribute("thymeleaf","测试thymeleaf页面");
         return "thymeleaf";
     }
 
     @RequestMapping("/add")
     public String add(){
-        System.err.println("loginController>add()");
 
 
 
@@ -136,13 +134,11 @@ public class LoginController {
 
     @RequestMapping("/update")
     public String update(){
-        System.err.println("loginController>update()");
         return "/user/add";
     }
 
     @RequestMapping("/toLogin")
     public String toLogin(){
-        System.err.println("loginController>toLogin()");
         return "/shiro/login";
     }
 }

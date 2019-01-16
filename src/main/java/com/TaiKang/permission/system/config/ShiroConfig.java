@@ -53,7 +53,7 @@ public class ShiroConfig {
         //未授权的路劲
         shiroFilterFactoryBean.setUnauthorizedUrl("/unauthor");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        _log.info("[ShiroConfig-INFO]Shiro拦截器配置结束。");
+        _log.info("Shiro权限拦截器配置结束。");
         return shiroFilterFactoryBean;
     }
 

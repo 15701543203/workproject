@@ -7,10 +7,7 @@ import com.TaiKang.permission.system.bean.UserInfo;
 import com.TaiKang.permission.system.service.RoleInfoService;
 import com.TaiKang.permission.system.service.UserInfoService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -64,7 +61,6 @@ public class UserRealm extends AuthorizingRealm {
 //            }
 //        }
       authorizationInfo.addStringPermission("user:add");
-
         return authorizationInfo;
     }
 
@@ -83,9 +79,8 @@ public class UserRealm extends AuthorizingRealm {
         //获取用户的输入的账号.
         String username = (String) token.getPrincipal();
         UserInfo dbUser = userInfoService.findByUsername(username);
-
-        if (dbUser != null) {
-            System.err.println("数据库消息:"+dbUser);
+        if (dbUser == null) {
+            return  null;
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 dbUser, //用户

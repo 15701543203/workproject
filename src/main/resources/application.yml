@@ -10,4 +10,3 @@ spring:
 mybatis:
     mapper-locations: classpath*:com/TaiKang/permission/**/dao/*Mapper.xml
     config-location: classpath:config/mybatis-config.xml
-#    configuration:
