@@ -24,8 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.Resource;
 import java.util.List;
 
-public class MyShiroRealm extends AuthorizingRealm {
-    private final static Logger _log = LoggerFactory.getLogger(MyShiroRealm.class);
+public class UserRealm extends AuthorizingRealm {
+    private final static Logger _log = LoggerFactory.getLogger(UserRealm.class);
     @Resource
     private UserInfoService userInfoService;
     @Autowired
@@ -40,17 +40,16 @@ public class MyShiroRealm extends AuthorizingRealm {
      **/
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-//        _log.info("[MyShiroRealm/doGetAuthorizationInfo-INFO]权限配置");
-        //给资源s授权
+        _log.info("执行授权认证逻辑");
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 
         //查询当前用户的授权字符串
-        Subject subject = SecurityUtils.getSubject();
-        UserInfo userInfo = (UserInfo) subject.getPrincipal();
+//        Subject subject = SecurityUtils.getSubject();
+//        UserInfo userInfo1 = (UserInfo) subject.getPrincipal();
 
 
-        //userInfoService.findById(userInfo.getId());
-//       UserInfo dbuserInfo =authorizationInfo.addStringPermission("user:add");
+//       UserInfo dbuserInfo =userInfoService.findById(userInfo.getId());
+//        authorizationInfo.addStringPermission("user:add");
 //        authorizationInfo.addStringPermission(dbuserInfo.getPermiassion());
 
 
@@ -64,7 +63,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 //                authorizationInfo.addStringPermission(p.getPermission());
 //            }
 //        }
-        authorizationInfo.addStringPermission("user:add");
+      authorizationInfo.addStringPermission("user:add");
 
         return authorizationInfo;
     }
@@ -83,14 +82,14 @@ public class MyShiroRealm extends AuthorizingRealm {
         _log.info("执行登录认证逻辑");
         //获取用户的输入的账号.
         String username = (String) token.getPrincipal();
-        UserInfo userInfo = userInfoService.findByUsername(username);
+        UserInfo dbUser = userInfoService.findByUsername(username);
 
-        if (userInfo == null) {
-            return null;
+        if (dbUser != null) {
+            System.err.println("数据库消息:"+dbUser);
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                userInfo, //用户
-                userInfo.getUserPwd(), //密码
+                dbUser, //用户
+                dbUser.getUserPwd(), //密码
 //                ByteSource.Util.bytes(userInfo.getSalt()),//salt=username+salt
                 getName()  //realm name
         );

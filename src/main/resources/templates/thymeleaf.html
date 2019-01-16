@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>thymeleaf</title>
@@ -8,8 +8,13 @@
 <body>
 <td th:text="${thymeleaf}"></td>
 <hr>
-<a href="/add">到添加</a>
-<a href="/update">到修改</a>
+<div shiro:hasPermission="user:add">
+    <a href="/add">到添加</a>
+</div>
+<div shiro:hasPermission="user:update">
+    <a href="/update">到修改</a>
+</div>
+
 
 
 </body>

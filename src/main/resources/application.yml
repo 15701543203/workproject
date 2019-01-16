@@ -1,18 +1,13 @@
 server:
   port: 8080
-
 spring:
-    datasource:
-        url: jdbc:mysql://localhost:3306/permissiondb?serverTimezone=UTC&characterEncoding=utf-8
-        username: root
-        password: 123456
-        driver-class-name: com.mysql.jdbc.Driver
-
-
-#    thymeleaf:
-#      prefix: classpath:/templates/
-#      mode: LEGACYHTML5
-#      cache: false
-
+  datasource:
+    url: jdbc:mysql://localhost:3306/permissiondb?serverTimezone=UTC&characterEncoding=utf-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
 mybatis:
-    mapper-locations: classpath*:com/ccm/**/dao/*.xml
+    mapper-locations: classpath*:com/TaiKang/permission/**/dao/*Mapper.xml
+    config-location: classpath:config/mybatis-config.xml
+#    configuration:

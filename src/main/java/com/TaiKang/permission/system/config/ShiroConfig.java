@@ -1,6 +1,7 @@
 package com.TaiKang.permission.system.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -20,7 +21,7 @@ public class ShiroConfig {
 
     @Bean
     public ShiroFilterFactoryBean shirFilter(@Qualifier("securityManager") SecurityManager securityManager) {
-        _log.info("[ShiroConfig-INFO]Shiro拦截器启动...");
+        _log.info("URL权限拦截器启动...");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //拦截器.
@@ -40,6 +41,7 @@ public class ShiroConfig {
         //授权过滤器
         //注意:当授权拦截后,shiro会自动跳转到未授权页面
         filterChainDefinitionMap.put("/add", "perms[user:add]");
+        filterChainDefinitionMap.put("/update", "perms[user:update]");
 
 
         //所有请求都需要经过认证才可以访问URL
@@ -49,7 +51,7 @@ public class ShiroConfig {
         //登录成功跳转的路径
         shiroFilterFactoryBean.setSuccessUrl("/thymeleaf");
         //未授权的路劲
-        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/unauthor");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         _log.info("[ShiroConfig-INFO]Shiro拦截器配置结束。");
         return shiroFilterFactoryBean;
@@ -62,25 +64,25 @@ public class ShiroConfig {
      *
      * @return
      */
-//    @Bean
-//    public HashedCredentialsMatcher hashedCredentialsMatcher(){
-//        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+    @Bean(name = "hashedCredentialsMatcher")
+    public HashedCredentialsMatcher hashedCredentialsMatcher(){
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
 //        hashedCredentialsMatcher.setHashAlgorithmName("md5");//散列算法:这里使用MD5算法;
 //        hashedCredentialsMatcher.setHashIterations(2);//散列的次数，比如散列两次，相当于 md5(md5(""));
-//        return hashedCredentialsMatcher;
-//    }
-    @Bean(value = "myShiroRealm")
-    public MyShiroRealm myShiroRealm() {
-        MyShiroRealm myShiroRealm = new MyShiroRealm();
+        return hashedCredentialsMatcher;
+    }
+    @Bean(name = "userRealm")
+    public UserRealm userRealm() {
+        UserRealm userRealm = new UserRealm();
 //        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
-        return myShiroRealm;
+        return userRealm;
     }
 
 
-    @Bean(value = "securityManager")
+    @Bean(name = "securityManager")
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(myShiroRealm());
+        securityManager.setRealm(userRealm());
         return securityManager;
     }
 
@@ -91,7 +93,7 @@ public class ShiroConfig {
      * @param securityManager
      * @return
      */
-    @Bean(value = "authorizationAttributeSourceAdvisor")
+    @Bean(name = "authorizationAttributeSourceAdvisor")
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
@@ -99,14 +101,8 @@ public class ShiroConfig {
     }
 
 
-    /**
-     * 配置shiro shirodialect,用于thymeleaf和shiro标签配合使用
-     *
-     * @return
-     */
     @Bean
-    public ShiroDialect getShrioDialect() {
+    public ShiroDialect getShiroDialect(){
         return new ShiroDialect();
     }
-
 }

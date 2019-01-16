@@ -48,9 +48,7 @@ public class LoginController {
     @ApiImplicitParam(name = "userInfo", value = "用户实体类", required = true, dataType = "UserInfo")
 //    @ResponseBody
 //    public ResponseMessage customLogin(HttpServletRequest request, UserInfo userInfo) throws Exception {
-//        _log.info("[LoginController/login-INFO]用户登录{}", userInfo);
-//        System.err.println("loginController>customLogin()["+userInfo+"]");
-//
+//        _log.info("登录入参{}", userInfo);
 //        Subject subject = SecurityUtils.getSubject();
 //        UsernamePasswordToken token = new UsernamePasswordToken(userInfo.getUsername(), userInfo.getUserPwd());
 //        try {
@@ -71,9 +69,7 @@ public class LoginController {
 //    }
 
     public String customLogin(HttpServletRequest request, UserInfo userInfo,Model model) throws Exception {
-        _log.info("[LoginController/login-INFO]用户登录{}", userInfo);
-        System.err.println("loginController>customLogin()["+userInfo+"]");
-
+        _log.info("用户登录入参:{}", userInfo);
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(userInfo.getUsername(), userInfo.getUserPwd());
         try {
@@ -87,9 +83,6 @@ public class LoginController {
         } catch (AuthenticationException Ae) {
             model.addAttribute("mistake","未授权");
             return "/shiro/login";
-
-
-            
         } catch (Exception e) {
             model.addAttribute("mistake","其他类型异常");
             return "/shiro/login";
