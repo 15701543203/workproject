@@ -42,6 +42,7 @@ public class ShiroConfig {
         //注意:当授权拦截后,shiro会自动跳转到未授权页面
         filterChainDefinitionMap.put("/add", "perms[user:add]");
         filterChainDefinitionMap.put("/update", "perms[user:update]");
+        filterChainDefinitionMap.put("/userInfo/userList", "anon");
 
 
         //所有请求都需要经过认证才可以访问URL

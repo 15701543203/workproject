@@ -123,18 +123,14 @@ public class LoginController {
         return "thymeleaf";
     }
 
-    @RequestMapping("/add")
+    @RequestMapping("/toAddUserPage")
     public String add(){
-
-
-
-
         return "/user/add";
     }
 
-    @RequestMapping("/update")
+    @RequestMapping("/toUpdateUser")
     public String update(){
-        return "/user/add";
+        return "/user/update";
     }
 
     @RequestMapping("/toLogin")
