@@ -52,16 +52,16 @@
 
     <update id="updateUserInfo" parameterType="com.TaiKang.permission.system.bean.UserInfo" useGeneratedKeys="true" keyProperty="user_id">
         UPDATE user_info
-        SET username = #{userId},
-         user_pwd = #{userId},
-         true_name = #{userId},
-         mobile = #{userId},
-         email = #{userId},
-         `status` = #{userId},
-         salt = #{userId},
-         remark = #{userId}
+        SET username = #{username},
+         user_pwd = #{userPwd},
+         true_name = #{trueName},
+         mobile = #{mobile},
+         email = #{email},
+         `status` = #{status},
+         salt = #{salt},
+         remark = #{remark}
         WHERE
-            user_id = 11
+            user_id = #{userId}
     </update>
 
     <select id="selectbyId" parameterType="java.lang.Integer" resultType="com.TaiKang.permission.system.bean.UserInfo">

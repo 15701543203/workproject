@@ -5,19 +5,18 @@ import com.TaiKang.permission.system.service.UserInfoService;
 import com.TaiKang.permission.utils.ResponseMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.catalina.User;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/userInfo")
 @Api(value = "用户CRUD操作", description = "用户信息的的增删查改等")
 public class UserInfoController {
@@ -32,15 +31,12 @@ public class UserInfoController {
      *
      * @return
      */
-    @RequestMapping("/userList")
+    @RequestMapping(value = "/userList",method = RequestMethod.POST)
 //    @RequiresPermissions("userInfo:view")//权限管理;
     @ApiOperation(value = "查询全部用户信息", notes = "")
-//    public ResponseMessage userInfo(Model model) {
-    public String userInfo(Model model) {
+    public ResponseMessage userInfo() {
         List<UserInfo>userList=userInfoService.findAll();
-        model.addAttribute("userList",userList);
-//        return ResponseMessage.ok(userList);
-        return "/user/userList";
+        return ResponseMessage.ok(userList);
     }
 
     /**
@@ -51,16 +47,16 @@ public class UserInfoController {
     @RequestMapping(value = "/doUserAdd",method = RequestMethod.POST)
 //    @RequiresPermissions("userInfo:add")//权限管理;
     @ApiOperation(value = "添加用户信息", notes = "")
-    public String userInfoAdd(UserInfo userInfo) {
+    public ResponseMessage userInfoAdd(@RequestBody UserInfo userInfo) {
         _log.info("添加用户入参:{}",userInfo);
         if (userInfo == null) {
             return null;
         }
         boolean b = userInfoService.addUserInfo(userInfo);
         if (b){
-            return "添加成功";
+            return ResponseMessage.ok("添加成功");
         }
-        return "添加失败";
+        return ResponseMessage.error("网络故障,请稍后重试或联系技术人员");
     }
 
     /**
@@ -68,10 +64,45 @@ public class UserInfoController {
      *
      * @return
      */
-    @RequestMapping("/userDel")
-    @RequiresPermissions("userInfo:del")//权限管理;
+    @RequestMapping(value = "/userDel",method = RequestMethod.POST)
+//    @RequiresPermissions("userInfo:del")//权限管理;
     @ApiOperation(value = "删除用户信息", notes = "")
-    public String userDel() {
-        return "userInfoDel";
+    public ResponseMessage userDel(@RequestBody UserInfo userInfo) {
+        if (userInfo==null){
+            return null;
+        }
+        boolean b = userInfoService.removeUserInfo(userInfo.getUserId());
+        if (b){
+            return ResponseMessage.ok("删除成功");
+        }
+        return ResponseMessage.error("网络故障,请稍后重试或联系技术人员");
+    }
+
+    /**
+     *
+     * @param userInfo
+     * @return
+     */
+    @RequestMapping(value = "/userUpdate",method = RequestMethod.POST)
+    public ResponseMessage userUpdate(@RequestBody UserInfo userInfo){
+        if (userInfo==null){
+            return null;
+        }
+        boolean b = userInfoService.editorUserInfo(userInfo);
+        if (b){
+            return ResponseMessage.ok("更新成功");
+        }
+        return ResponseMessage.error("网络故障,请稍后重试或联系技术人员");
+    }
+
+    @RequestMapping(value = "/getOne" ,method = RequestMethod.POST)
+    public ResponseMessage getOne(@RequestBody UserInfo userInfo){
+        if (null==userInfo){
+            return null;
+        }
+
+        UserInfo user = userInfoService.findUserbyId(userInfo.getUserId());
+       return ResponseMessage.ok(user);
+
     }
 }

@@ -11,4 +11,59 @@
       WHERE
 	      tur.user_id = #{userid}
     </select>
+
+    <insert id="insertRole" parameterType="com.TaiKang.permission.system.bean.RoleInfo" useGeneratedKeys="true" keyProperty="role_id">
+      INSERT INTO role_info (
+            role_name,
+            role_status,
+            gentime,
+            role_description,
+        )
+        VALUES
+            (
+            #{roleName},
+            #{roleStatus},
+            #{gentime},
+            #{roleDescription}
+            )
+    </insert>
+    <delete id="deleteRole" parameterType="java.lang.Integer">
+         DELETE
+            FROM
+            role_info
+        WHERE
+            role_id = #{roleId}
+    </delete>
+    <update id="updateRole" parameterType="com.TaiKang.permission.system.bean.RoleInfo" useGeneratedKeys="true" keyProperty="role_id">
+         UPDATE role_info
+         SET
+             role_name = #{roleName},
+             role_status = #{roleStatus},
+             gentime = #{gentime},
+             role_description = #{roleDescription},
+        WHERE
+            role_id = #{roleId}
+    </update>
+    <select id="selectAll" resultType="com.TaiKang.permission.system.bean.RoleInfo">
+        SELECT
+            role_id,
+            role_name,
+            role_status,
+            gentime,
+            role_description
+        FROM
+            role_info
+    </select>
+    <select id="selectOne" parameterType="java.lang.Integer" resultType="com.TaiKang.permission.system.bean.RoleInfo">
+        SELECT
+            role_id,
+            role_name,
+            role_status,
+            gentime,
+            role_description
+        FROM
+            role_info
+        WHERE
+            role_id = #{roleId}
+    </select>
 </mapper>

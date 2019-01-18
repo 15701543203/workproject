@@ -9,7 +9,7 @@
 <body>
 <ol>
 <li>
-    <table bgcolor="aqua",border="1">
+    <table>
         <tr>
             <th>账号</th>
             <th>密码</th>
@@ -20,6 +20,7 @@
             <th>盐</th>
             <th>备注</th>
             <th>参数</th>
+            <th>操作</th>
         </tr>
         <tr th:each = "user,userStat:${userList}">
             <td th:text="${user.username}"></td>
@@ -31,6 +32,7 @@
             <td th:text="${user.salt}"></td>
             <td th:text="${user.remark}"></td>
             <td th:text="${user.perms}"></td>
+            <td><a href="/userInfo/userDel?"th:text=""${user.userId}">删除</a>/<a href="">修改</a></td>
 
         </tr>
     </table>

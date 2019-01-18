@@ -43,6 +43,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/add", "perms[user:add]");
         filterChainDefinitionMap.put("/update", "perms[user:update]");
         filterChainDefinitionMap.put("/userInfo/userList", "anon");
+        filterChainDefinitionMap.put("/userInfo/userDel", "anon");
+        filterChainDefinitionMap.put("/userInfo/userUpdate", "anon");
+        filterChainDefinitionMap.put("/userInfo/getOne", "anon");
 
 
         //所有请求都需要经过认证才可以访问URL
