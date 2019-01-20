@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.TaiKang.permission.system.dao.PermissionMapper">
+    <insert id="insertPermission" parameterType="com.TaiKang.permission.system.bean.Permission" useGeneratedKeys="true" keyProperty="per_id">
+       INSERT INTO per_info (
+        role_name,
+        role_status,
+        gentime,
+        role_description
+        )
+        VALUES
+        (
+        #{roleName},
+        #{roleStatus},
+        NOW(),
+        #{roleDescription}
+        )
+    </insert>
+
+    <delete id="delectPermission" parameterType="com.TaiKang.permission.system.bean.Permission">
+        DELETE
+        FROM
+          per_info
+        WHERE
+          per_id = #{perId}
+    </delete>
+    <update id="updatePermission" parameterType="com.TaiKang.permission.system.bean.Permission" useGeneratedKeys="true" keyProperty="per_id">
+        DELETE
+        FROM
+        role_info
+        WHERE
+        role_id = #{roleId}
+    </update>
+    <update id="selectPermission" parameterType="com.TaiKang.permission.system.bean.RoleInfo" useGeneratedKeys="true" keyProperty="role_id">
+        UPDATE role_info
+        SET
+        role_name = #{roleName},
+        role_status = #{roleStatus},
+        gentime = NOW(),
+        role_description = #{roleDescription}
+        WHERE
+        role_id = #{roleId}
+    </update>
+    <select id="selectPermissions" resultType="com.TaiKang.permission.system.bean.RoleInfo">
+        SELECT
+        role_id,
+        role_name,
+        role_status,
+        gentime,
+        role_description
+        FROM
+        role_info
+    </select>
+</mapper>

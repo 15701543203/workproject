@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 @Getter
@@ -31,6 +32,8 @@ public class UserInfo{
     private String remark;
 
     private String perms;
+
+    private List<String> roleNames;
 
 //    public int getUserId() {
 //        return userId;
