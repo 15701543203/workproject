@@ -21,26 +21,40 @@ public class RoleInfoServiceImpl implements RoleInfoService {
 
     @Override
     public boolean addRole(RoleInfo roleInfo) {
+        int i = roleInfoMapper.insertRole(roleInfo);
+        if (i==1){
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean delRole(int roleId) {
+        int i = roleInfoMapper.deleteRole(roleId);
+        if (i==1){
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean updateRole(RoleInfo roleInfo) {
+        int i =roleInfoMapper.updateRole(roleInfo);
+        if (i==1){
+            return true;
+        }
         return false;
     }
 
     @Override
     public List<RoleInfo> getAll() {
-        return null;
+        List<RoleInfo> roleInfos = roleInfoMapper.selectAll();
+        return roleInfos;
     }
 
     @Override
     public RoleInfo getOne(int roleId) {
-        return null;
+        RoleInfo roleInfo = roleInfoMapper.selectOne(roleId);
+        return roleInfo;
     }
 }

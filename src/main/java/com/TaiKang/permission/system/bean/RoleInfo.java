@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @ToString
 public class RoleInfo {
-    private Integer roelId;
+    private Integer roleId;
     private String roleName;
     private Integer roleStatus;
     private String gentime;

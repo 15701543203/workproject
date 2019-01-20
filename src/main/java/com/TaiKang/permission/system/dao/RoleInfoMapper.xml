@@ -14,16 +14,16 @@
 
     <insert id="insertRole" parameterType="com.TaiKang.permission.system.bean.RoleInfo" useGeneratedKeys="true" keyProperty="role_id">
       INSERT INTO role_info (
-            role_name,
-            role_status,
-            gentime,
-            role_description,
+        role_name,
+        role_status,
+        gentime,
+        role_description
         )
         VALUES
             (
             #{roleName},
             #{roleStatus},
-            #{gentime},
+            NOW(),
             #{roleDescription}
             )
     </insert>
@@ -39,8 +39,8 @@
          SET
              role_name = #{roleName},
              role_status = #{roleStatus},
-             gentime = #{gentime},
-             role_description = #{roleDescription},
+             gentime = NOW(),
+             role_description = #{roleDescription}
         WHERE
             role_id = #{roleId}
     </update>
