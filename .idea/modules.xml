@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shiro-perject.iml" filepath="$PROJECT_DIR$/.idea/modules/shiro-perject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shiro-perject_main.iml" filepath="$PROJECT_DIR$/.idea/modules/shiro-perject_main.iml" group="shiro-perject" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shiro-perject_test.iml" filepath="$PROJECT_DIR$/.idea/modules/shiro-perject_test.iml" group="shiro-perject" />
+    </modules>
+  </component>
+</project>

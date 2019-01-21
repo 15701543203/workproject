@@ -79,6 +79,7 @@ public class UserRealm extends AuthorizingRealm {
         //获取用户的输入的账号.
         String username = (String) token.getPrincipal();
         UserInfo dbUser = userInfoService.findByUsername(username);
+
         if (dbUser == null) {
             return  null;
         }

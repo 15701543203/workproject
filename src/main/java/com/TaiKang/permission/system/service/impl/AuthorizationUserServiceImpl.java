@@ -27,14 +27,14 @@ public class AuthorizationUserServiceImpl implements AuthorizationUserService {
 
     @Override
     public boolean authorization(TempUserRole tempUserRole) {
-        List<Integer> roleList = tempUserRole.getRoleList();
+        List<RoleInfo> roleList = tempUserRole.getRoleList();
 
         TempUserRole tur = new TempUserRole();
         tur.setUserId(tempUserRole.getUserId());
         int i = 0;
-        for (Integer roleId : roleList) {
-            tur.setRoleId(roleId);
-            int i1 = authorizationUserMapper.insertAuthorization(tur);
+        for (RoleInfo role : roleList) {
+            tur.setRoleId(role.getRoleId());
+            int i1 = authorizationUserMapper.insertUserAuthorization(tur);
             if (i1 > 0) {
                 i++;
             }

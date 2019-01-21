@@ -10,4 +10,18 @@
         AND user_id = #{userId}
     </delete>
 
+    <insert id="insertUserAuthorization" parameterType="com.TaiKang.permission.system.bean.TempUserRole" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO temp_usr_role (
+            role_id,
+            user_id
+            )
+        VALUES
+            (
+            #{roleId},
+            #{userId}
+            )
+    </insert>
+
+
+
 </mapper>
