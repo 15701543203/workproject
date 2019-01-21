@@ -16,8 +16,9 @@ public interface AuthorizationRoleMapper {
     /**
      * 角色授权限
      *
-     * @param tempUserRole
+     * @param tempRolePer
      * @return
      */
-    int insertRolePermission(TempUserRole tempUserRole);
+    int insertRolePermission(TempRolePer tempRolePer);
+
 }

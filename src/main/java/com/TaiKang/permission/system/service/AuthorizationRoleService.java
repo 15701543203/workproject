@@ -9,4 +9,11 @@ public interface AuthorizationRoleService {
      * @return
      */
     boolean revokeRolePermission(TempRolePer tempRolePer);
+
+    /**
+     * 角色授权
+     * @param tempRolePer
+     * @return
+     */
+    boolean authorizationRole(TempRolePer tempRolePer);
 }
