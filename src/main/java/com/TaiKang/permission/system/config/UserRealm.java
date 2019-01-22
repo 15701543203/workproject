@@ -41,29 +41,23 @@ public class UserRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 
         //查询当前用户的授权字符串
-//        Subject subject = SecurityUtils.getSubject();
-//        UserInfo userInfo1 = (UserInfo) subject.getPrincipal();
+        Subject subject = SecurityUtils.getSubject();
+        UserInfo user = (UserInfo) subject.getPrincipal();
 
-
-//       UserInfo dbuserInfo =userInfoService.findById(userInfo.getId());
-//        authorizationInfo.addStringPermission("user:add");
-//        authorizationInfo.addStringPermission(dbuserInfo.getPermiassion());
-
-
-
-
-//        UserInfo userInfo = (UserInfo) principals.getPrimaryPrincipal();
-//        List<RoleInfo> roleInfos = roleInfoService.getRolesByUserId(userInfo.getUserId());
-//        for(RoleInfo role:roleInfos){
-//            authorizationInfo.addRole(role.getRoleName());
-//            for(Permission p:role.getPermissions()){
-//                authorizationInfo.addStringPermission(p.getPermission());
-//            }
-//        }
-      authorizationInfo.addStringPermission("user:add");
+        List<RoleInfo> roleList = roleInfoService.getRoleListByUserId(user);
+        for (RoleInfo roleInfo : roleList) {
+            //添加角色授权逻辑
+            authorizationInfo.addRole(roleInfo.getRoleName());
+            //获取角色拥有的权限
+            List<Permission> perList = roleInfo.getPermissionList();
+            for (Permission permission : perList) {
+                //添加权限授权逻辑
+                authorizationInfo.addStringPermission(permission.getPermission());
+            }
+        }
+//      authorizationInfo.addStringPermission("user:add");
         return authorizationInfo;
     }
-
 
     /*
      * @Author:LEEZHEN
@@ -81,7 +75,7 @@ public class UserRealm extends AuthorizingRealm {
         UserInfo dbUser = userInfoService.findByUsername(username);
 
         if (dbUser == null) {
-            return  null;
+            return null;
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 dbUser, //用户

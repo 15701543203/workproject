@@ -1,6 +1,7 @@
 package com.TaiKang.permission.system.service.impl;
 
 import com.TaiKang.permission.system.bean.RoleInfo;
+import com.TaiKang.permission.system.bean.UserInfo;
 import com.TaiKang.permission.system.dao.RoleInfoMapper;
 import com.TaiKang.permission.system.service.RoleInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,6 @@ import java.util.List;
 public class RoleInfoServiceImpl implements RoleInfoService {
     @Autowired
     private RoleInfoMapper roleInfoMapper;
-    @Override
-    public List<RoleInfo> getRolesByUserId(int userId) {
-
-
-        return roleInfoMapper.selectRolesByUserId(userId);
-    }
-
     @Override
     public boolean addRole(RoleInfo roleInfo) {
         int i = roleInfoMapper.insertRole(roleInfo);
@@ -56,5 +50,13 @@ public class RoleInfoServiceImpl implements RoleInfoService {
     public RoleInfo getOne(int roleId) {
         RoleInfo roleInfo = roleInfoMapper.selectOne(roleId);
         return roleInfo;
+    }
+
+    @Override
+    public List<RoleInfo> getRoleListByUserId(UserInfo userInfo) {
+        List<RoleInfo> roleInfos = roleInfoMapper.selectRoleListByUserId(userInfo.getUserId());
+
+
+        return roleInfos;
     }
 }

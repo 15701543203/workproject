@@ -20,7 +20,7 @@ sourceSets.main.resources.srcDirs = ["src/main/java", "src/main/resources"]
 
 
 dependencies {
-    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    compile group: 'org.projectlombok', name: 'lombok',version: '1.18.2'
     compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.0'
     //wagger2
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
