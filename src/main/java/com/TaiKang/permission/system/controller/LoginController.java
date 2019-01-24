@@ -46,51 +46,51 @@ public class LoginController {
     @RequestMapping(value = "/customLogin",method = RequestMethod.POST)
     @ApiOperation(value = "用户登录", notes = "使用Shiro做登录校验")
     @ApiImplicitParam(name = "userInfo", value = "用户实体类", required = true, dataType = "UserInfo")
-//    @ResponseBody
-//    public ResponseMessage customLogin(HttpServletRequest request, UserInfo userInfo) throws Exception {
-//        _log.info("登录入参{}", userInfo);
-//        Subject subject = SecurityUtils.getSubject();
-//        UsernamePasswordToken token = new UsernamePasswordToken(userInfo.getUsername(), userInfo.getUserPwd());
-//        try {
-//            subject.login(token);
-//        } catch (UnknownAccountException Ue) {
-//            _log.error("用户名不正确异常信息:" + Ue);
-//            return ResponseMessage.error("用户名不正确");
-//        } catch (IncorrectCredentialsException Ie) {
-//            _log.error("密码不正确异常信息" + Ie);
-//            return ResponseMessage.error("密码不正确");
-//        } catch (AuthenticationException Ae) {
-//            _log.error("身份认证异常信息" + Ae);
-//            return ResponseMessage.error("身份认证异常信息");
-//        } catch (Exception e) {
-//            return ResponseMessage.error(e);
-//        }
-//        return ResponseMessage.ok("登录成功");
-//    }
-
-    public String customLogin(HttpServletRequest request, UserInfo userInfo,Model model) throws Exception {
-        _log.info("用户登录入参:{}", userInfo);
+    @ResponseBody
+    public ResponseMessage customLogin(HttpServletRequest request, @RequestBody UserInfo userInfo) throws Exception {
+        _log.info("登录入参{}", userInfo);
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(userInfo.getUsername(), userInfo.getUserPwd());
         try {
             subject.login(token);
         } catch (UnknownAccountException Ue) {
-            model.addAttribute("mistake","账号不存在");
-            return "/shiro/login";
+            _log.error("用户名不正确异常信息:" + Ue);
+            return ResponseMessage.error("用户名不正确");
         } catch (IncorrectCredentialsException Ie) {
-            model.addAttribute("mistake","密码错误");
-            return "/shiro/login";
+            _log.error("密码不正确异常信息" + Ie);
+            return ResponseMessage.error("密码不正确");
         } catch (AuthenticationException Ae) {
-            model.addAttribute("mistake","未授权");
-            return "/shiro/login";
+            _log.error("身份认证异常信息" + Ae);
+            return ResponseMessage.error("身份认证异常信息");
         } catch (Exception e) {
-            model.addAttribute("mistake","其他类型异常");
-            return "/shiro/login";
+            return ResponseMessage.error(e);
         }
-        return "thymeleaf";
-
-
+        return ResponseMessage.ok("登录成功");
     }
+
+//    public String customLogin(HttpServletRequest request, UserInfo userInfo,Model model) throws Exception {
+//        _log.info("用户登录入参:{}", userInfo);
+//        Subject subject = SecurityUtils.getSubject();
+//        UsernamePasswordToken token = new UsernamePasswordToken(userInfo.getUsername(), userInfo.getUserPwd());
+//        try {
+//            subject.login(token);
+//        } catch (UnknownAccountException Ue) {
+//            model.addAttribute("mistake","账号不存在");
+//            return "/shiro/login";
+//        } catch (IncorrectCredentialsException Ie) {
+//            model.addAttribute("mistake","密码错误");
+//            return "/shiro/login";
+//        } catch (AuthenticationException Ae) {
+//            model.addAttribute("mistake","未授权");
+//            return "/shiro/login";
+//        } catch (Exception e) {
+//            model.addAttribute("mistake","其他类型异常");
+//            return "/shiro/login";
+//        }
+//        return "thymeleaf";
+
+
+//    }
 
     /*
      * @Author:LEEZHEN

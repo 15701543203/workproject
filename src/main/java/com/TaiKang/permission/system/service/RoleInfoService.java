@@ -47,5 +47,12 @@ public interface RoleInfoService {
      */
     List<RoleInfo> getRoleListByUserId(UserInfo userInfo);
 
+    /**
+     * 使用userId查询出具备的所有jues
+     * @param userId
+     * @return
+     */
+    List<String> getRoleNames(int userId);
+
 
 }

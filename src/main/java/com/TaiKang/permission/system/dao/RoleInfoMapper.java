@@ -45,4 +45,11 @@ public interface RoleInfoMapper {
      * @return
      */
     List<RoleInfo> selectRoleListByUserId(Integer userId);
+
+    /**
+     * 使用userId查询出该用具具备的角色
+     * @param userId
+     * @return
+     */
+    List<String> selectRoleNamesByUserId(int userId);
 }

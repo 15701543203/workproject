@@ -66,4 +66,14 @@
         WHERE
             role_id = #{roleId}
     </select>
+
+    <select id="selectRoleNamesByUserId" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT
+            ri.role_name
+        FROM
+            temp_usr_role AS tur
+        LEFT JOIN role_info AS ri ON tur.role_id = ri.role_id
+        WHERE
+            tur.user_id = #{userId}
+    </select>
 </mapper>

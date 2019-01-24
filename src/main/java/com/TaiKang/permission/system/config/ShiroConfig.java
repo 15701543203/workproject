@@ -53,7 +53,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/roleInfo/delRole", "anon");
         filterChainDefinitionMap.put("/User-Authorization/revoke", "anon");
         filterChainDefinitionMap.put("/User-Authorization/authorization", "anon");
-        filterChainDefinitionMap.put("//Role-Authorization/revokeRolePermission", "anon");
+        filterChainDefinitionMap.put("/Role-Authorization/revokeRolePermission", "anon");
+        filterChainDefinitionMap.put("/log/addLog", "anon");
 
 
         //所有请求都需要经过认证才可以访问URL

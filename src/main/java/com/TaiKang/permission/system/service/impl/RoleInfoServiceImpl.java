@@ -59,4 +59,9 @@ public class RoleInfoServiceImpl implements RoleInfoService {
 
         return roleInfos;
     }
+
+    @Override
+    public List<String> getRoleNames(int userId) {
+        return roleInfoMapper.selectRoleNamesByUserId(userId);
+    }
 }
