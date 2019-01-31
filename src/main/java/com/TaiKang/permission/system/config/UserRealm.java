@@ -25,6 +25,7 @@ public class UserRealm extends AuthorizingRealm {
     private final static Logger _log = LoggerFactory.getLogger(UserRealm.class);
     @Resource
     private UserInfoService userInfoService;
+
     @Autowired
     private RoleInfoService roleInfoService;
 

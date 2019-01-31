@@ -37,6 +37,11 @@ private final static Logger _log = LoggerFactory.getLogger(AuthorizationRoleCont
         return ResponseMessage.error("网络故障,请稍后重试或联系技术人员");
     }
 
+    /**
+     * 授权
+     * @param tempRolePer
+     * @return
+     */
     @RequestMapping(value = "/authorization", method = RequestMethod.POST)
     public ResponseMessage authorization(@RequestBody TempRolePer tempRolePer) {
         _log.info("权限入参：{}",tempRolePer);

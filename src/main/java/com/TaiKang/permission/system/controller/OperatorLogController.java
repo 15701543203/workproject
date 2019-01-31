@@ -8,6 +8,8 @@ import com.TaiKang.permission.system.service.UserInfoService;
 import com.TaiKang.permission.utils.ResponseMessage;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/log")
 public class OperatorLogController {
+    public final static Logger _log = LoggerFactory.getLogger(OperatorLogController.class);
+
     @Autowired
     private OperatorLogService operatorLogService;
 
@@ -37,6 +41,10 @@ public class OperatorLogController {
      */
     @RequestMapping(value = "/addLog", method = RequestMethod.POST)
     public ResponseMessage addLog(@RequestBody OperatorLog operatorLog) {
+        _log.info("添加操作日志入参:{}", operatorLog);
+        if (null == operatorLog.getOperType() && null == operatorLog.getOperContent()) {
+            return ResponseMessage.error("入参为空");
+        }
 
         Subject subject = SecurityUtils.getSubject();
         UserInfo userInfo = (UserInfo) subject.getPrincipal();
